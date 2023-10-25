@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://tnnc5q4cud5l"]
+
+[ext_resource type="Script" path="res://examples/Example.gd" id="1_2mw4m"]
+[ext_resource type="PackedScene" uid="uid://ckg5ljrhkbd6h" path="res://wave_manager.tscn" id="2_tkuy7"]
+[ext_resource type="PackedScene" uid="uid://bbv3tveqjmvyh" path="res://examples/objectsToSpawn/Cube1.tscn" id="3_g0g5w"]
+[ext_resource type="PackedScene" uid="uid://c0rnmbdjm1hx3" path="res://examples/models/blue_tower.glb" id="4_ry04d"]
+[ext_resource type="PackedScene" uid="uid://oux3fnfhfa4g" path="res://examples/models/red_tower.glb" id="5_ggwh2"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v5itf"]
+size = Vector2(15, 10)
+
+[node name="Example" type="Node3D"]
+script = ExtResource("1_2mw4m")
+
+[node name="WaveManager" parent="." node_paths=PackedStringArray("generation_container") instance=ExtResource("2_tkuy7")]
+generation_container = NodePath("..")
+spawn_locations = Array[Vector3]([Vector3(2, 0.35, -5), Vector3(-2, 0.35, -5), Vector3(5, 0.35, -5), Vector3(-5, 0.35, -5)])
+scenes_to_spawn = Array[PackedScene]([ExtResource("3_g0g5w"), ExtResource("3_g0g5w"), ExtResource("3_g0g5w"), ExtResource("3_g0g5w")])
+auto_start = true
+seconds_between_waves = 4.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.51441, 0.857545, 0, -0.857545, 0.51441, 0, 2.47156, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.927758, 0.373182, 0, -0.373182, 0.927758, 0, 3, 2.463)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_v5itf")
+
+[node name="WaveTimer" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 44.0
+offset_right = 41.0
+offset_bottom = 67.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 43.0
+offset_bottom = 26.0
+text = "Spawn all entities at once"
+
+[node name="blue_tower" parent="." instance=ExtResource("4_ry04d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -6)
+
+[node name="blue_tower2" parent="." instance=ExtResource("4_ry04d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -6)
+
+[node name="red_tower" parent="." instance=ExtResource("5_ggwh2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
+
+[node name="red_tower2" parent="." instance=ExtResource("5_ggwh2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -6)
+
+[connection signal="entity_created" from="WaveManager" to="." method="_on_wave_manager_entity_created"]

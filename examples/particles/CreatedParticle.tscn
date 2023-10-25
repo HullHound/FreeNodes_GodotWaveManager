@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://duqoirdbj6aw8"]
+
+[sub_resource type="Gradient" id="Gradient_bhpvs"]
+colors = PackedColorArray(0.54, 0.46467, 0.0378, 1, 0.1518, 0.2415, 0.69, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_manin"]
+gradient = SubResource("Gradient_bhpvs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dfamf"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 4.0
+initial_velocity_max = 8.0
+color_ramp = SubResource("GradientTexture1D_manin")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bov4s"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_4hu4t"]
+material = SubResource("StandardMaterial3D_bov4s")
+size = Vector2(0.2, 0.2)
+
+[node name="CreatedParticle" type="GPUParticles3D"]
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_dfamf")
+draw_pass_1 = SubResource("QuadMesh_4hu4t")

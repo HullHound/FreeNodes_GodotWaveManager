@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbv3tveqjmvyh"]
+
+[ext_resource type="Script" path="res://examples/objectsToSpawn/Enemy.gd" id="1_ntbby"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sfbwy"]
+size = Vector3(0.7, 0.7, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b5t6u"]
+albedo_color = Color(1, 0.129412, 0.686275, 1)
+
+[node name="Cube1" type="Node3D"]
+script = ExtResource("1_ntbby")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_sfbwy")
+surface_material_override/0 = SubResource("StandardMaterial3D_b5t6u")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckg5ljrhkbd6h"]
+
+[ext_resource type="Script" path="res://WaveManager.gd" id="1_rqvmy"]
+[ext_resource type="Script" path="res://nodes/ObjectInstantiator.gd" id="1_tffbj"]
+[ext_resource type="Script" path="res://nodes/ObjectPlacer3D.gd" id="2_0qcqa"]
+
+[node name="WaveManager" type="Node"]
+script = ExtResource("1_rqvmy")
+
+[node name="ObjectInstantiator" type="Node" parent="."]
+script = ExtResource("1_tffbj")
+
+[node name="ObjectPlacer3D" type="Node" parent="."]
+script = ExtResource("2_0qcqa")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="objects_instantiated" from="ObjectInstantiator" to="." method="_on_object_instantiator_objects_instantiated"]
+[connection signal="all_objects_placed" from="ObjectPlacer3D" to="." method="_on_object_placer_3d_all_objects_placed"]
+[connection signal="object_placed" from="ObjectPlacer3D" to="." method="_on_object_placer_3d_object_placed"]
+[connection signal="placement_locations_all_used" from="ObjectPlacer3D" to="." method="_on_object_placer_3d_placement_locations_all_used"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
